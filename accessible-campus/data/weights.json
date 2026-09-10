@@ -1,0 +1,76 @@
+{
+  "profiles": {
+    "wheelchair": {
+      "label": "轮椅模式",
+      "description": "楼梯与陡坡绝对禁止通行,仅使用电梯、坡道和平缓通道",
+      "type_multiplier": {
+        "walkway": 1.0,
+        "ramp": 1.05,
+        "elevator": 1.0,
+        "stairs": null,
+        "slope_path": 1.0
+      },
+      "slope_penalties": [
+        [
+          0.05,
+          0.0
+        ],
+        [
+          0.0833,
+          2.0
+        ],
+        [
+          0.12,
+          8.0
+        ],
+        [
+          null,
+          20.0
+        ]
+      ],
+      "slope_hard_limit": 0.12,
+      "surface_multiplier": {
+        "smooth": 1.0,
+        "rough": 1.8
+      },
+      "elevator_fixed_cost": 30.0,
+      "speed_mps": 0.9
+    },
+    "standard": {
+      "label": "一般无障碍模式",
+      "description": "优先避开楼梯和陡坡;实在无替代路线时允许兜底通行",
+      "type_multiplier": {
+        "walkway": 1.0,
+        "ramp": 1.05,
+        "elevator": 1.0,
+        "stairs": 25.0,
+        "slope_path": 1.0
+      },
+      "slope_penalties": [
+        [
+          0.05,
+          0.0
+        ],
+        [
+          0.0833,
+          1.5
+        ],
+        [
+          0.12,
+          4.0
+        ],
+        [
+          null,
+          10.0
+        ]
+      ],
+      "slope_hard_limit": null,
+      "surface_multiplier": {
+        "smooth": 1.0,
+        "rough": 1.3
+      },
+      "elevator_fixed_cost": 30.0,
+      "speed_mps": 1.1
+    }
+  }
+}

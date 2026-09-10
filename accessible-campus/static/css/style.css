@@ -1,0 +1,109 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  background: #f0f4f8; color: #243b53; min-height: 100vh;
+}
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  background: linear-gradient(90deg, #0b7285, #15aabf);
+  color: #fff; padding: 14px 28px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.topbar h1 { font-size: 20px; }
+.admin-link { color: #e7f5ff; text-decoration: none; font-size: 14px;
+  border: 1px solid rgba(255,255,255,.5); padding: 6px 14px; border-radius: 20px; }
+.admin-link:hover { background: rgba(255,255,255,.15); }
+
+.layout { display: grid; grid-template-columns: 380px 1fr; gap: 20px; padding: 20px; max-width: 1500px; margin: 0 auto; }
+.panel, .map-wrap, .tab-panel {
+  background: #fff; border-radius: 12px; padding: 20px;
+  box-shadow: 0 1px 4px rgba(15,40,70,.08);
+}
+.panel h2 { font-size: 17px; margin-bottom: 14px; color: #0b7285; }
+.field { margin-bottom: 14px; }
+.field > label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #486581; }
+select, input[type=number], input[type=text], input:not([type]) {
+  width: 100%; padding: 9px 10px; border: 1px solid #bcccdc; border-radius: 8px;
+  font-size: 14px; background: #fff; color: #243b53;
+}
+select:focus, input:focus { outline: 2px solid #15aabf; border-color: transparent; }
+
+.mode-group { display: flex; gap: 10px; }
+.mode { flex: 1; border: 1px solid #bcccdc; border-radius: 10px; padding: 10px; cursor: pointer; font-size: 14px; }
+.mode input { margin-right: 6px; }
+.mode small { color: #829ab1; }
+.mode:has(input:checked) { border-color: #0b7285; background: #e3fafc; }
+
+.btn { border: none; border-radius: 8px; padding: 11px 18px; font-size: 14px; cursor: pointer; }
+.btn-primary { background: #0b7285; color: #fff; width: 100%; font-weight: 600; }
+.btn-primary:hover { background: #0998b0; }
+.btn-ghost { background: transparent; color: #0b7285; border: 1px dashed #66d9e8; width: 100%; margin-bottom: 12px; }
+.btn-sm { padding: 4px 10px; font-size: 12px; border-radius: 6px; margin-right: 4px; }
+.btn-edit { background: #e3fafc; color: #0b7285; border: none; }
+.btn-del { background: #ffe3e3; color: #c92a2a; border: none; }
+
+.via-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
+.via-row select { flex: 1; }
+.via-remove { background: #ffe3e3; color: #c92a2a; border: none; border-radius: 6px; width: 30px; height: 34px; cursor: pointer; }
+
+.error { background: #ffe3e3; color: #c92a2a; padding: 10px 14px; border-radius: 8px; margin-top: 12px; font-size: 13px; }
+
+.summary { display: flex; gap: 16px; margin: 10px 0; flex-wrap: wrap; }
+.summary .stat { background: #e3fafc; border-radius: 10px; padding: 10px 16px; text-align: center; }
+.summary .stat b { display: block; font-size: 20px; color: #0b7285; }
+.summary .stat span { font-size: 12px; color: #486581; }
+.badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.badge { background: #d3f9d8; color: #2b8a3e; font-size: 12px; padding: 4px 10px; border-radius: 20px; }
+.badge.warn { background: #ffe8cc; color: #d9480f; }
+.steps { padding-left: 22px; font-size: 13px; line-height: 1.9; color: #334e68; }
+.steps li::marker { color: #15aabf; font-weight: 700; }
+
+.map-wrap { display: flex; flex-direction: column; }
+#map { width: 100%; flex: 1; min-height: 520px; background: #f8fbfd; border-radius: 8px; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; padding-top: 12px; font-size: 12px; color: #486581; }
+.lg { display: inline-block; width: 22px; height: 4px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
+.lg.walkway { background: #9fb3c8; } .lg.ramp { background: #40c057; }
+.lg.elevator { background: #4c6ef5; } .lg.stairs { background: #fa5252; }
+.lg.slope_path { background: #fd7e14; } .lg.route { background: #0b7285; height: 6px; }
+
+/* 地图元素 */
+.edge { stroke: #9fb3c8; stroke-width: 3; fill: none; }
+.edge.ramp { stroke: #40c057; }
+.edge.elevator { stroke: #4c6ef5; stroke-width: 5; }
+.edge.stairs { stroke: #fa5252; stroke-dasharray: 7 5; }
+.edge.slope_path { stroke: #fd7e14; stroke-dasharray: 2 4; }
+.edge.route { stroke: #0b7285; stroke-width: 7; stroke-linecap: round;
+  stroke-dasharray: 14 8; animation: march 1s linear infinite; opacity: .9; }
+@keyframes march { to { stroke-dashoffset: -22; } }
+.node-bldg { fill: #fff; stroke: #0b7285; stroke-width: 2; }
+.node-jct { fill: #9fb3c8; }
+.node-label { font-size: 13px; fill: #243b53; text-anchor: middle; font-weight: 600; }
+.node-icon { font-size: 20px; text-anchor: middle; }
+.node-hl { fill: #ffe8cc; stroke: #d9480f; }
+
+/* 管理端 */
+.admin-layout { max-width: 1100px; margin: 20px auto; padding: 0 20px; }
+.tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.tab { border: none; background: #d9e2ec; color: #334e68; padding: 10px 22px;
+  border-radius: 8px 8px 0 0; cursor: pointer; font-size: 14px; }
+.tab.active { background: #fff; color: #0b7285; font-weight: 700; }
+.tab-panel h2 { font-size: 17px; margin-bottom: 14px; color: #0b7285; }
+.tab-panel small { color: #829ab1; font-weight: 400; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px; margin-bottom: 18px; padding: 14px; background: #f0f7fa; border-radius: 10px; }
+.form-grid label { font-size: 12px; color: #486581; display: block; margin-bottom: 4px; }
+.form-actions { display: flex; gap: 8px; align-items: flex-end; }
+.form-actions .btn { width: auto; margin: 0; }
+.table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.table th, .table td { padding: 8px 10px; border-bottom: 1px solid #e3ecf3; text-align: left; }
+.table th { background: #f0f7fa; color: #486581; }
+.toast { position: fixed; top: 70px; right: 24px; background: #2b8a3e; color: #fff;
+  padding: 10px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 9; }
+.toast.err { background: #c92a2a; }
+.weight-formula { background: #e3fafc; border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; font-size: 13px; }
+.weight-card { border: 1px solid #d9e2ec; border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+.weight-card h3 { color: #0b7285; margin-bottom: 4px; }
+.weight-card p { font-size: 12px; color: #829ab1; margin-bottom: 12px; }
+.weight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+.weight-grid label { font-size: 12px; color: #486581; display: block; margin-bottom: 3px; }
+.slope-table { width: 100%; font-size: 13px; margin-top: 6px; }
+.slope-table td { padding: 4px; }

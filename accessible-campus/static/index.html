@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>校园无障碍路线规划</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <h1>🎓 校园无障碍路线规划</h1>
+  <a class="admin-link" href="/admin">管理员入口</a>
+</header>
+
+<main class="layout">
+  <!-- 左侧:查询面板 -->
+  <section class="panel">
+    <h2>路线查询</h2>
+
+    <div class="field">
+      <label>出行模式</label>
+      <div class="mode-group">
+        <label class="mode"><input type="radio" name="profile" value="wheelchair" checked>
+          <span>♿ 轮椅模式<br><small>仅走电梯/坡道/平缓通道</small></span></label>
+        <label class="mode"><input type="radio" name="profile" value="standard">
+          <span>🚶 一般无障碍<br><small>优先避开楼梯和陡坡</small></span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="start">出发地</label>
+      <select id="start"></select>
+    </div>
+
+    <div id="via-container"></div>
+    <button id="add-via" class="btn btn-ghost" type="button">＋ 添加途经点(教学楼/食堂等)</button>
+
+    <div class="field">
+      <label for="end">目的地</label>
+      <select id="end"></select>
+    </div>
+
+    <button id="search" class="btn btn-primary">规划无障碍路线</button>
+    <div id="error" class="error" hidden></div>
+
+    <!-- 结果 -->
+    <div id="result" hidden>
+      <h2>路线详情</h2>
+      <div class="summary" id="summary"></div>
+      <div class="badges" id="badges"></div>
+      <ol class="steps" id="steps"></ol>
+    </div>
+  </section>
+
+  <!-- 右侧:校园地图 -->
+  <section class="map-wrap">
+    <svg id="map" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid meet"></svg>
+    <div class="legend">
+      <span><i class="lg walkway"></i>平缓通道</span>
+      <span><i class="lg ramp"></i>无障碍坡道</span>
+      <span><i class="lg elevator"></i>电梯</span>
+      <span><i class="lg stairs"></i>楼梯</span>
+      <span><i class="lg slope_path"></i>陡坡</span>
+      <span><i class="lg route"></i>推荐路线</span>
+    </div>
+  </section>
+</main>
+
+<script src="/static/js/student.js"></script>
+</body>
+</html>

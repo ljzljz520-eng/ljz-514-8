@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>校园图数据管理 - 无障碍路线规划</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <h1>🛠 校园图数据管理</h1>
+  <a class="admin-link" href="/">返回学生端</a>
+</header>
+
+<main class="admin-layout">
+  <nav class="tabs">
+    <button class="tab active" data-tab="nodes">节点管理</button>
+    <button class="tab" data-tab="edges">通道(边)管理</button>
+    <button class="tab" data-tab="weights">算法权重设置</button>
+  </nav>
+  <div id="toast" class="toast" hidden></div>
+
+  <!-- 节点管理 -->
+  <section id="tab-nodes" class="tab-panel">
+    <h2>校园节点 <small>建筑与路口</small></h2>
+    <form id="node-form" class="form-grid">
+      <input type="hidden" id="node-editing">
+      <div><label>节点ID(英文)</label><input id="node-id" required placeholder="如 dorm_c"></div>
+      <div><label>名称</label><input id="node-name" required placeholder="如 学生宿舍C栋"></div>
+      <div><label>类型</label>
+        <select id="node-type">
+          <option value="dormitory">宿舍</option>
+          <option value="teaching">教学楼</option>
+          <option value="cafeteria">食堂</option>
+          <option value="library">图书馆</option>
+          <option value="junction">路口/途经点</option>
+        </select></div>
+      <div><label>地图X坐标</label><input id="node-x" type="number" step="1" required></div>
+      <div><label>地图Y坐标</label><input id="node-y" type="number" step="1" required></div>
+      <div class="form-actions">
+        <button class="btn btn-primary" type="submit">保存节点</button>
+        <button class="btn btn-ghost" type="button" id="node-reset">清空</button>
+      </div>
+    </form>
+    <table class="table" id="node-table">
+      <thead><tr><th>ID</th><th>名称</th><th>类型</th><th>X</th><th>Y</th><th>操作</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- 边管理 -->
+  <section id="tab-edges" class="tab-panel" hidden>
+    <h2>通道(边) <small>连接两个节点的道路/设施</small></h2>
+    <form id="edge-form" class="form-grid">
+      <input type="hidden" id="edge-editing">
+      <div><label>边ID(英文)</label><input id="edge-id" required placeholder="如 e30"></div>
+      <div><label>起点</label><select id="edge-from"></select></div>
+      <div><label>终点</label><select id="edge-to"></select></div>
+      <div><label>距离(米)</label><input id="edge-distance" type="number" step="1" min="1" required></div>
+      <div><label>设施类型</label>
+        <select id="edge-kind">
+          <option value="walkway">平缓通道</option>
+          <option value="ramp">无障碍坡道</option>
+          <option value="elevator">电梯</option>
+          <option value="stairs">楼梯</option>
+          <option value="slope_path">坡道(有坡度)</option>
+        </select></div>
+      <div><label>坡度(小数,如 0.08=8%)</label><input id="edge-slope" type="number" step="0.01" min="0" max="0.5" value="0"></div>
+      <div><label>路面</label>
+        <select id="edge-surface">
+          <option value="smooth">平整</option>
+          <option value="rough">颠簸</option>
+        </select></div>
+      <div class="form-actions">
+        <button class="btn btn-primary" type="submit">保存通道</button>
+        <button class="btn btn-ghost" type="button" id="edge-reset">清空</button>
+      </div>
+    </form>
+    <table class="table" id="edge-table">
+      <thead><tr><th>ID</th><th>起点</th><th>终点</th><th>距离</th><th>类型</th><th>坡度</th><th>路面</th><th>操作</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- 权重设置 -->
+  <section id="tab-weights" class="tab-panel" hidden>
+    <h2>算法权重设置 <small>修改后即时生效,详见 docs/weights.md</small></h2>
+    <div class="weight-formula">
+      权重公式:<code>W(e) = 距离 × 设施类型倍率 × (1 + 坡度惩罚) × 路面倍率 + 固定成本</code>
+    </div>
+    <div id="weights-container"></div>
+    <button class="btn btn-primary" id="save-weights">保存全部权重</button>
+    <button class="btn btn-ghost" id="reload-weights">放弃修改,重新加载</button>
+  </section>
+</main>
+
+<script src="/static/js/admin.js"></script>
+</body>
+</html>

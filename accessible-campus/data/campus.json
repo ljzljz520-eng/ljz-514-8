@@ -1,0 +1,294 @@
+{
+  "nodes": {
+    "dorm_a": {
+      "name": "学生宿舍A栋",
+      "type": "dormitory",
+      "x": 80,
+      "y": 110
+    },
+    "dorm_b": {
+      "name": "学生宿舍B栋",
+      "type": "dormitory",
+      "x": 70,
+      "y": 330
+    },
+    "tb1": {
+      "name": "第一教学楼",
+      "type": "teaching",
+      "x": 470,
+      "y": 90
+    },
+    "tb2": {
+      "name": "第二教学楼",
+      "type": "teaching",
+      "x": 740,
+      "y": 150
+    },
+    "cant1": {
+      "name": "第一食堂",
+      "type": "cafeteria",
+      "x": 300,
+      "y": 300
+    },
+    "cant2": {
+      "name": "第二食堂",
+      "type": "cafeteria",
+      "x": 630,
+      "y": 390
+    },
+    "lib": {
+      "name": "图书馆",
+      "type": "library",
+      "x": 450,
+      "y": 580
+    },
+    "p6": {
+      "name": "宿舍区路口",
+      "type": "junction",
+      "x": 180,
+      "y": 210
+    },
+    "p1": {
+      "name": "中央广场北",
+      "type": "junction",
+      "x": 300,
+      "y": 150
+    },
+    "p2": {
+      "name": "中央广场南",
+      "type": "junction",
+      "x": 330,
+      "y": 430
+    },
+    "p3": {
+      "name": "银杏大道口",
+      "type": "junction",
+      "x": 530,
+      "y": 300
+    },
+    "p7": {
+      "name": "教学楼连廊口",
+      "type": "junction",
+      "x": 610,
+      "y": 110
+    },
+    "p4": {
+      "name": "图书馆北广场",
+      "type": "junction",
+      "x": 450,
+      "y": 480
+    },
+    "p5": {
+      "name": "后山小路口",
+      "type": "junction",
+      "x": 720,
+      "y": 520
+    },
+    "lib_west": {
+      "name": "图书馆西厅(电梯)",
+      "type": "junction",
+      "x": 370,
+      "y": 580
+    }
+  },
+  "edges": [
+    {
+      "id": "e1",
+      "from": "dorm_a",
+      "to": "p6",
+      "distance": 95,
+      "kind": "walkway",
+      "slope": 0.01,
+      "surface": "smooth"
+    },
+    {
+      "id": "e2",
+      "from": "dorm_b",
+      "to": "p6",
+      "distance": 90,
+      "kind": "walkway",
+      "slope": 0.01,
+      "surface": "smooth"
+    },
+    {
+      "id": "e3",
+      "from": "p6",
+      "to": "p1",
+      "distance": 140,
+      "kind": "walkway",
+      "slope": 0.02,
+      "surface": "smooth"
+    },
+    {
+      "id": "e4",
+      "from": "p1",
+      "to": "tb1",
+      "distance": 180,
+      "kind": "walkway",
+      "slope": 0.02,
+      "surface": "smooth"
+    },
+    {
+      "id": "e5",
+      "from": "p1",
+      "to": "cant1",
+      "distance": 150,
+      "kind": "walkway",
+      "slope": 0.01,
+      "surface": "smooth"
+    },
+    {
+      "id": "e6",
+      "from": "cant1",
+      "to": "p2",
+      "distance": 130,
+      "kind": "walkway",
+      "slope": 0.02,
+      "surface": "smooth"
+    },
+    {
+      "id": "e7",
+      "from": "p2",
+      "to": "p4",
+      "distance": 130,
+      "kind": "walkway",
+      "slope": 0.03,
+      "surface": "smooth"
+    },
+    {
+      "id": "e8",
+      "from": "p4",
+      "to": "lib",
+      "distance": 105,
+      "kind": "ramp",
+      "slope": 0.05,
+      "surface": "smooth"
+    },
+    {
+      "id": "e9",
+      "from": "p1",
+      "to": "p3",
+      "distance": 280,
+      "kind": "walkway",
+      "slope": 0.02,
+      "surface": "smooth"
+    },
+    {
+      "id": "e10",
+      "from": "p3",
+      "to": "tb2",
+      "distance": 250,
+      "kind": "walkway",
+      "slope": 0.02,
+      "surface": "smooth"
+    },
+    {
+      "id": "e11",
+      "from": "p3",
+      "to": "cant2",
+      "distance": 140,
+      "kind": "walkway",
+      "slope": 0.02,
+      "surface": "smooth"
+    },
+    {
+      "id": "e12",
+      "from": "cant2",
+      "to": "p5",
+      "distance": 170,
+      "kind": "walkway",
+      "slope": 0.03,
+      "surface": "smooth"
+    },
+    {
+      "id": "e13",
+      "from": "p5",
+      "to": "lib",
+      "distance": 280,
+      "kind": "slope_path",
+      "slope": 0.14,
+      "surface": "rough"
+    },
+    {
+      "id": "e14",
+      "from": "tb1",
+      "to": "p7",
+      "distance": 145,
+      "kind": "walkway",
+      "slope": 0.01,
+      "surface": "smooth"
+    },
+    {
+      "id": "e15",
+      "from": "p7",
+      "to": "tb2",
+      "distance": 135,
+      "kind": "walkway",
+      "slope": 0.01,
+      "surface": "smooth"
+    },
+    {
+      "id": "e16",
+      "from": "p2",
+      "to": "lib_west",
+      "distance": 155,
+      "kind": "walkway",
+      "slope": 0.02,
+      "surface": "smooth"
+    },
+    {
+      "id": "e17",
+      "from": "lib_west",
+      "to": "lib",
+      "distance": 8,
+      "kind": "elevator",
+      "slope": 0.0,
+      "surface": "smooth"
+    },
+    {
+      "id": "e18",
+      "from": "p4",
+      "to": "lib",
+      "distance": 100,
+      "kind": "stairs",
+      "slope": 0.0,
+      "surface": "smooth"
+    },
+    {
+      "id": "e19",
+      "from": "cant1",
+      "to": "p3",
+      "distance": 230,
+      "kind": "walkway",
+      "slope": 0.02,
+      "surface": "smooth"
+    },
+    {
+      "id": "e20",
+      "from": "dorm_b",
+      "to": "p2",
+      "distance": 280,
+      "kind": "walkway",
+      "slope": 0.04,
+      "surface": "smooth"
+    },
+    {
+      "id": "e22",
+      "from": "p6",
+      "to": "cant1",
+      "distance": 150,
+      "kind": "slope_path",
+      "slope": 0.1,
+      "surface": "rough"
+    },
+    {
+      "id": "e23",
+      "from": "tb1",
+      "to": "p1",
+      "distance": 120,
+      "kind": "stairs",
+      "slope": 0.0,
+      "surface": "smooth"
+    }
+  ]
+}

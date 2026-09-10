@@ -22,7 +22,23 @@ python3 server.py            # 默认 8000 端口
 ```
 
 - 学生端: http://localhost:8000/
-- 管理端: http://localhost:8000/admin
+- 管理端: http://localhost:8000/admin (需 Basic Auth)
+
+**管理端访问控制**:`/admin` 页面与全部 `/api/admin/*` 接口均要求 HTTP Basic
+Auth(用户名固定 `admin`),密码按以下优先级确定:
+
+1. 启动参数 `--admin-password PWD`
+2. 环境变量 `ADMIN_PASSWORD`
+3. 两者都未提供时,启动时**随机生成一次性密码**并打印在控制台(重启失效)
+
+```bash
+ADMIN_PASSWORD=s3cret python3 server.py
+# 或: python3 server.py --admin-password s3cret
+# 之后 curl -u admin:s3cret http://localhost:8000/admin
+```
+
+学生端页面与查询接口(`/api/route`、`/api/locations`、`/api/graph`、
+`/api/weights`)保持公开,无需认证。
 
 运行测试:
 
@@ -40,7 +56,9 @@ accessible-campus/
 │   ├── campus.json      # 校园图数据(节点 + 边)
 │   └── weights.json     # 权重配置(首次运行自动生成,管理员可改)
 ├── static/              # 学生端 index.html / 管理端 admin.html + CSS/JS
-├── tests/test_router.py # 算法单元测试(11 个用例)
+├── tests/
+│   ├── test_router.py     # 算法单元测试(11 个用例)
+│   └── test_server.py     # 服务端测试:管理端访问控制 + 权重校验
 └── docs/weights.md      # ★ 算法权重设置详细说明
 ```
 
@@ -64,9 +82,12 @@ accessible-campus/
 | POST | `/api/route` | 路线查询 `{waypoints:[...], profile:"wheelchair"\|"standard"}` |
 | GET | `/api/graph` | 全量校园图数据 |
 | GET | `/api/weights` | 当前权重配置 |
-| POST/PUT/DELETE | `/api/admin/nodes[/<id>]` | 节点增改删(删节点级联删边) |
-| POST/PUT/DELETE | `/api/admin/edges[/<id>]` | 边增改删 |
-| PUT | `/api/admin/weights` | 整体更新权重配置 |
+| POST/PUT/DELETE | `/api/admin/nodes[/<id>]` | 节点增改删(删节点级联删边),**需 Basic Auth** |
+| POST/PUT/DELETE | `/api/admin/edges[/<id>]` | 边增改删,**需 Basic Auth** |
+| PUT | `/api/admin/weights` | 整体更新权重配置(严格校验,非法配置返回 400 不落盘),**需 Basic Auth** |
+
+未携带/错误的认证凭据统一返回 `401 Unauthorized` 及 `WWW-Authenticate: Basic`
+响应头,浏览器会弹出登录框。
 
 ## 校园图数据格式
 
@@ -84,7 +105,11 @@ accessible-campus/
 
 ## 说明
 
-- 演示系统未实现管理员鉴权,生产部署请在反向代理层为 `/admin` 与
-  `/api/admin/*` 增加认证(如 Basic Auth / SSO)。
+- 管理端已内置 HTTP Basic Auth 访问控制(见上文"管理端访问控制");Basic Auth
+  仅为简单口令保护,生产部署建议再配合 HTTPS 或在反向代理层接入 SSO。
+- 权重保存接口执行严格的结构与数值校验:倍率/惩罚/固定成本必须为有限非负数,
+  `speed_mps` 必须为正数,坡度分档必须是 `[上限, 惩罚]` 二元组且上限严格递增
+  (`null` 兜底档只能位于最后);非法配置返回 400 且**不写盘**,从源头杜绝坏配置
+  导致后续路线查询异常。
 - 数据文件为 JSON,修改即落盘;多实例部署可替换为数据库,`DataStore`
   类已隔离全部存取逻辑。

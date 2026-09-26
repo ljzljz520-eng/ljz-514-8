@@ -1,0 +1,31 @@
+{
+  "nodes": [
+    {"id": "D1", "name": "一号宿舍楼", "kind": "dorm", "x": 0, "y": 0},
+    {"id": "T1", "name": "第一教学楼", "kind": "teaching", "x": 300, "y": 200},
+    {"id": "C1", "name": "中心食堂", "kind": "canteen", "x": 200, "y": 80},
+    {"id": "L1", "name": "图书馆", "kind": "library", "x": 320, "y": 40},
+    {"id": "J1", "name": "宿舍前路口", "kind": "junction", "x": 80, "y": 10},
+    {"id": "J2", "name": "中央广场", "kind": "junction", "x": 220, "y": 60},
+    {"id": "J3", "name": "教学楼西侧路口", "kind": "junction", "x": 240, "y": 180},
+    {"id": "J4", "name": "教学楼坡道入口", "kind": "junction", "x": 280, "y": 120},
+    {"id": "J5", "name": "图书馆坡道入口", "kind": "junction", "x": 280, "y": 30},
+    {"id": "E1", "name": "教学楼电梯厅", "kind": "elevator", "x": 255, "y": 195}
+  ],
+  "edges": [
+    {"source": "D1", "target": "J1", "length": 80, "edge_type": "walkway", "slope": 1.0, "note": "宿舍区主干道"},
+    {"source": "J1", "target": "J2", "length": 30, "edge_type": "stairs", "slope": 0.0, "note": "广场台阶捷径"},
+    {"source": "J1", "target": "J3", "length": 150, "edge_type": "walkway", "slope": 1.5, "note": "西侧平缓绕行道"},
+    {"source": "J3", "target": "J2", "length": 110, "edge_type": "walkway", "slope": 2.0, "note": ""},
+    {"source": "J2", "target": "C1", "length": 50, "edge_type": "walkway", "slope": 1.0, "note": ""},
+    {"source": "J2", "target": "T1", "length": 60, "edge_type": "walkway", "slope": 10.0, "note": "南坡陡道"},
+    {"source": "J2", "target": "J4", "length": 40, "edge_type": "walkway", "slope": 2.0, "note": ""},
+    {"source": "J4", "target": "T1", "length": 70, "edge_type": "ramp", "slope": 4.5, "note": "教学楼东侧坡道"},
+    {"source": "J3", "target": "T1", "length": 15, "edge_type": "stairs", "slope": 0.0, "note": "教学楼正门台阶"},
+    {"source": "J3", "target": "E1", "length": 12, "edge_type": "walkway", "slope": 0.5, "note": ""},
+    {"source": "E1", "target": "T1", "length": 3, "edge_type": "elevator", "slope": 0.0, "elevator_wait": 40, "note": "教学楼无障碍电梯"},
+    {"source": "J2", "target": "L1", "length": 25, "edge_type": "stairs", "slope": 0.0, "note": "图书馆前台阶"},
+    {"source": "J2", "target": "J5", "length": 45, "edge_type": "walkway", "slope": 1.5, "note": ""},
+    {"source": "J5", "target": "L1", "length": 60, "edge_type": "ramp", "slope": 4.0, "note": "图书馆北侧坡道"},
+    {"source": "C1", "target": "J5", "length": 55, "edge_type": "walkway", "slope": 2.0, "note": "食堂东侧通道"}
+  ]
+}

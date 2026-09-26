@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理员 · 校园图数据维护</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">🗺️</span>
+      <div>
+        <h1>校园图数据维护</h1>
+        <p class="subtitle">维护节点、通道及算法权重，变更即时影响无障碍路线结果</p>
+      </div>
+    </div>
+    <nav>
+      <a href="/">学生端</a>
+      <a href="/admin.html" class="active">管理员入口</a>
+    </nav>
+  </header>
+
+  <div id="loginMask" class="login-mask">
+    <form class="login-box" id="loginForm">
+      <h2>管理员登录</h2>
+      <label class="field"><span>用户名</span><input type="text" id="loginUser" value="admin" autocomplete="username"></label>
+      <label class="field"><span>密码</span><input type="password" id="loginPwd" placeholder="默认 admin123" autocomplete="current-password"></label>
+      <button class="primary" type="submit">登录</button>
+      <p class="hint" id="loginErr" style="color:#c0392b"></p>
+    </form>
+  </div>
+
+  <main class="admin-layout">
+    <section class="card" style="display:flex;flex-direction:column;padding:12px;">
+      <div class="legend">
+        <span>💡 点击地图上的节点/通道可载入编辑；新增时在图上拖动坐标提示：可直接填写 x/y</span>
+      </div>
+      <svg id="map" viewBox="0 0 900 480" role="img" aria-label="校园地图编辑器"></svg>
+    </section>
+
+    <aside class="card side-scroll">
+      <div class="tabs">
+        <div class="tab active" data-tab="edge">通道(边)</div>
+        <div class="tab" data-tab="node">地点(节点)</div>
+        <div class="tab" data-tab="weights">算法权重</div>
+      </div>
+
+      <div id="tab-edge">
+        <h2 id="edgeFormTitle">新增通道</h2>
+        <form id="edgeForm" class="form-grid">
+          <label class="field"><span>边 ID</span><input type="text" id="e_id" required></label>
+          <label class="field"><span>类型</span>
+            <select id="e_type">
+              <option value="path">平缓通道 path</option>
+              <option value="corridor">室内通道 corridor</option>
+              <option value="ramp">无障碍坡道 ramp</option>
+              <option value="slope">坡路 slope</option>
+              <option value="stairs">台阶 stairs</option>
+              <option value="elevator">电梯 elevator</option>
+              <option value="door">出入口门 door</option>
+            </select>
+          </label>
+          <label class="field"><span>端点 A</span><select id="e_a"></select></label>
+          <label class="field"><span>端点 B</span><select id="e_b"></select></label>
+          <label class="field"><span>长度(米，留空自动按坐标估算)</span><input type="number" step="0.1" id="e_length"></label>
+          <label class="field"><span>坡度 grade (0~0.2)</span><input type="number" step="0.005" id="e_grade"></label>
+          <label class="field"><span>净宽(米)</span><input type="number" step="0.1" id="e_width"></label>
+          <label class="field"><span>路面</span>
+            <select id="e_surface">
+              <option value="">（默认）</option>
+              <option value="asphalt">沥青</option>
+              <option value="concrete">水泥</option>
+              <option value="brick">砖石</option>
+              <option value="gravel">碎石</option>
+              <option value="cobble">鹅卵石</option>
+            </select>
+          </label>
+          <label class="field"><span>台阶级数</span><input type="number" id="e_stair_count"></label>
+          <label class="field"><span>跨越楼层数</span><input type="number" id="e_floors"></label>
+          <label class="checkbox-line"><input type="checkbox" id="e_tactile">沿线有盲道</label>
+          <label class="checkbox-line"><input type="checkbox" id="e_has_elev">有可用电梯</label>
+          <label class="checkbox-line"><input type="checkbox" id="e_blocked">施工/封闭（临时不可通行）</label>
+          <label class="checkbox-line"><input type="checkbox" id="e_heavy">沉重门（仅 door）</label>
+          <div class="row-actions full">
+            <button type="submit" class="primary">保存通道</button>
+            <button type="button" class="danger" id="edgeDel">删除</button>
+            <button type="button" class="ghost" id="edgeReset">清空</button>
+          </div>
+        </form>
+        <h3 style="margin-top:18px">通道列表</h3>
+        <div style="max-height:260px;overflow:auto;"><table class="list" id="edgeTable"></table></div>
+      </div>
+
+      <div id="tab-node" hidden>
+        <h2 id="nodeFormTitle">新增地点</h2>
+        <form id="nodeForm" class="form-grid">
+          <label class="field"><span>节点 ID（英文唯一）</span><input type="text" id="n_id" required></label>
+          <label class="field"><span>显示名称</span><input type="text" id="n_name" required></label>
+          <label class="field"><span>类型</span>
+            <select id="n_type">
+              <option value="junction">路口 junction</option>
+              <option value="entrance">出入口 entrance</option>
+              <option value="indoor">室内点 indoor</option>
+              <option value="room">房间/功能室 room</option>
+              <option value="elevator">电梯间 elevator</option>
+              <option value="stairs">楼梯间 stairs</option>
+            </select>
+          </label>
+          <label class="field"><span>所属建筑</span>
+            <select id="n_building">
+              <option value="">（户外/无）</option>
+              <option value="dorm">宿舍</option>
+              <option value="teach">教学楼</option>
+              <option value="canteen">食堂</option>
+              <option value="library">图书馆</option>
+            </select>
+          </label>
+          <label class="field"><span>x 坐标</span><input type="number" id="n_x" required></label>
+          <label class="field"><span>y 坐标</span><input type="number" id="n_y" required></label>
+          <label class="field"><span>楼层 floor</span><input type="number" id="n_floor" value="0"></label>
+          <div class="row-actions full">
+            <button type="submit" class="primary">保存节点</button>
+            <button type="button" class="danger" id="nodeDel">删除</button>
+            <button type="button" class="ghost" id="nodeReset">清空</button>
+          </div>
+        </form>
+        <h3 style="margin-top:18px">节点列表</h3>
+        <div style="max-height:320px;overflow:auto;"><table class="list" id="nodeTable"></table></div>
+      </div>
+
+      <div id="tab-weights" hidden>
+        <h2>算法权重设置</h2>
+        <p class="hint">与 data/weights.json 对应。修改后直接保存，寻路立即按新权重计算。字段含义见
+          <a href="docs/algorithm.md" target="_blank">算法说明文档</a>。</p>
+        <label class="field"><span>权重配置（JSON）</span><textarea id="weightsEditor" rows="22"></textarea></label>
+        <div class="row-actions">
+          <button class="primary" id="weightsSave">保存权重</button>
+          <button class="ghost" id="weightsReload">重新载入</button>
+        </div>
+        <div class="row-actions">
+          <button class="danger" id="resetGraph">恢复默认校园图</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "name": "示例校园",
+    "version": 1,
+    "coordinate_note": "同一栋楼的不同楼层采用相同 x、y 加 floor 偏移的虚拟坐标，用于 SVG 分层展示；length 单位为米"
+  },
+  "nodes": [
+    {"id": "dorm_gate",   "name": "宿舍北门",       "type": "entrance", "building": "dorm",    "x": 80,  "y": 60,  "floor": 0},
+    {"id": "dorm_lobby",  "name": "1号宿舍楼大厅",  "type": "indoor",   "building": "dorm",    "x": 80,  "y": 130, "floor": 1},
+    {"id": "dorm_elev",   "name": "宿舍楼电梯间",   "type": "elevator", "building": "dorm",    "x": 150, "y": 130, "floor": 1},
+    {"id": "dorm_stairs", "name": "宿舍楼楼梯口",   "type": "stairs",   "building": "dorm",    "x": 110, "y": 200, "floor": 1},
+    {"id": "dorm_room",   "name": "宿舍 305",       "type": "room",     "building": "dorm",    "x": 80,  "y": 130, "floor": 3},
+    {"id": "dorm_elev3",  "name": "宿舍 3F 电梯口", "type": "elevator", "building": "dorm",    "x": 150, "y": 130, "floor": 3},
+    {"id": "dorm_st3",    "name": "宿舍 3F 楼梯口", "type": "stairs",   "building": "dorm",    "x": 110, "y": 200, "floor": 3},
+
+    {"id": "teach_gate",  "name": "教学楼正门",     "type": "entrance", "building": "teach",   "x": 300, "y": 60,  "floor": 0},
+    {"id": "teach_lobby", "name": "教学楼大厅",     "type": "indoor",   "building": "teach",   "x": 300, "y": 130, "floor": 1},
+    {"id": "teach_elev",  "name": "教学楼电梯间",   "type": "elevator", "building": "teach",   "x": 370, "y": 130, "floor": 1},
+    {"id": "teach_st1",   "name": "教学楼楼梯口",   "type": "stairs",   "building": "teach",   "x": 240, "y": 200, "floor": 1},
+    {"id": "teach_room",  "name": "教学楼 204 教室","type": "room",     "building": "teach",   "x": 300, "y": 130, "floor": 2},
+    {"id": "teach_elev2", "name": "教学楼 2F 电梯口","type": "elevator","building": "teach",   "x": 370, "y": 130, "floor": 2},
+    {"id": "teach_st2",   "name": "教学楼 2F 楼梯口","type": "stairs",  "building": "teach",   "x": 240, "y": 200, "floor": 2},
+
+    {"id": "lib_gate",    "name": "图书馆南门",     "type": "entrance", "building": "library", "x": 560, "y": 390, "floor": 0},
+    {"id": "lib_lobby",   "name": "图书馆大厅",     "type": "indoor",   "building": "library", "x": 560, "y": 320, "floor": 1},
+    {"id": "lib_elev",    "name": "图书馆电梯间",   "type": "elevator", "building": "library", "x": 630, "y": 320, "floor": 1},
+    {"id": "lib_st1",     "name": "图书馆楼梯口",   "type": "stairs",   "building": "library", "x": 500, "y": 250, "floor": 1},
+    {"id": "lib_read",    "name": "图书馆 3F 阅览区","type": "room",     "building": "library", "x": 560, "y": 320, "floor": 3},
+    {"id": "lib_elev3",   "name": "图书馆 3F 电梯口","type": "elevator","building": "library", "x": 630, "y": 320, "floor": 3},
+    {"id": "lib_st3",     "name": "图书馆 3F 楼梯口","type": "stairs",  "building": "library", "x": 500, "y": 250, "floor": 3},
+
+    {"id": "canteen_gate", "name": "食堂东门",      "type": "entrance", "building": "canteen", "x": 820, "y": 230, "floor": 0},
+    {"id": "canteen_hall", "name": "食堂一层大厅",  "type": "indoor",   "building": "canteen", "x": 750, "y": 230, "floor": 1},
+    {"id": "canteen_elev", "name": "食堂电梯间",    "type": "elevator", "building": "canteen", "x": 750, "y": 160, "floor": 1},
+    {"id": "canteen_st1",  "name": "食堂楼梯口",    "type": "stairs",   "building": "canteen", "x": 680, "y": 230, "floor": 1},
+    {"id": "canteen_2f",   "name": "食堂二层风味餐厅","type": "room",   "building": "canteen", "x": 750, "y": 230, "floor": 2},
+    {"id": "canteen_elev2","name": "食堂 2F 电梯口","type": "elevator", "building": "canteen", "x": 750, "y": 160, "floor": 2},
+    {"id": "canteen_st2",  "name": "食堂 2F 楼梯口","type": "stairs",   "building": "canteen", "x": 680, "y": 230, "floor": 2},
+
+    {"id": "j_dorm",  "name": "宿舍路口",   "type": "junction", "x": 150, "y": 60},
+    {"id": "j_teach", "name": "教学楼路口", "type": "junction", "x": 240, "y": 60},
+    {"id": "j_plaza", "name": "中心广场",   "type": "junction", "x": 330, "y": 150},
+    {"id": "j_hill_t","name": "坡顶路口",   "type": "junction", "x": 280, "y": 260},
+    {"id": "j_ramp_t","name": "坡道顶路口", "type": "junction", "x": 380, "y": 260},
+    {"id": "j_south", "name": "南门平路路口","type": "junction", "x": 380, "y": 420},
+    {"id": "j_lib_n", "name": "图书馆北路口","type": "junction", "x": 500, "y": 250},
+    {"id": "j_cant_e","name": "食堂东路口", "type": "junction", "x": 820, "y": 230},
+    {"id": "j_cant_w","name": "食堂西路口", "type": "junction", "x": 660, "y": 230},
+    {"id": "j_south_mid", "name": "南环路中段", "type": "junction", "x": 660, "y": 400}
+  ],
+  "edges": [
+    {"id": "e1", "a": "dorm_gate", "b": "dorm_lobby", "type": "door", "width_m": 1.6},
+    {"id": "e2", "a": "dorm_lobby", "b": "dorm_elev", "type": "corridor"},
+    {"id": "e3", "a": "dorm_lobby", "b": "dorm_stairs", "type": "corridor"},
+    {"id": "e4", "a": "dorm_elev", "b": "dorm_elev3", "type": "elevator", "floors": 2, "has_elevator": true},
+    {"id": "e5", "a": "dorm_stairs", "b": "dorm_st3", "type": "stairs", "floors": 2, "stair_count": 36},
+    {"id": "e6", "a": "dorm_elev3", "b": "dorm_room", "type": "corridor"},
+    {"id": "e7", "a": "dorm_st3", "b": "dorm_room", "type": "corridor"},
+
+    {"id": "e10", "a": "teach_gate", "b": "teach_lobby", "type": "door", "width_m": 1.8},
+    {"id": "e11", "a": "teach_lobby", "b": "teach_elev", "type": "corridor"},
+    {"id": "e12", "a": "teach_lobby", "b": "teach_st1", "type": "corridor"},
+    {"id": "e13", "a": "teach_elev", "b": "teach_elev2", "type": "elevator", "floors": 1, "has_elevator": true},
+    {"id": "e14", "a": "teach_st1", "b": "teach_st2", "type": "stairs", "floors": 1, "stair_count": 18},
+    {"id": "e15", "a": "teach_elev2", "b": "teach_room", "type": "corridor"},
+    {"id": "e16", "a": "teach_st2", "b": "teach_room", "type": "corridor"},
+
+    {"id": "e20", "a": "lib_gate", "b": "lib_lobby", "type": "door", "width_m": 1.5},
+    {"id": "e21", "a": "lib_lobby", "b": "lib_elev", "type": "corridor"},
+    {"id": "e22", "a": "lib_lobby", "b": "lib_st1", "type": "corridor"},
+    {"id": "e23", "a": "lib_elev", "b": "lib_elev3", "type": "elevator", "floors": 2, "has_elevator": true},
+    {"id": "e24", "a": "lib_st1", "b": "lib_st3", "type": "stairs", "floors": 2, "stair_count": 40},
+    {"id": "e25", "a": "lib_elev3", "b": "lib_read", "type": "corridor"},
+    {"id": "e26", "a": "lib_st3", "b": "lib_read", "type": "corridor"},
+
+    {"id": "e30", "a": "canteen_gate", "b": "canteen_hall", "type": "door", "width_m": 2.0},
+    {"id": "e31", "a": "canteen_hall", "b": "canteen_elev", "type": "corridor"},
+    {"id": "e32", "a": "canteen_hall", "b": "canteen_st1", "type": "corridor"},
+    {"id": "e33", "a": "canteen_elev", "b": "canteen_elev2", "type": "elevator", "floors": 1, "has_elevator": true},
+    {"id": "e34", "a": "canteen_st1", "b": "canteen_st2", "type": "stairs", "floors": 1, "stair_count": 20},
+    {"id": "e35", "a": "canteen_elev2", "b": "canteen_2f", "type": "corridor"},
+    {"id": "e36", "a": "canteen_st2", "b": "canteen_2f", "type": "corridor"},
+
+    {"id": "e40", "a": "dorm_gate", "b": "j_dorm", "type": "path"},
+    {"id": "e41", "a": "j_dorm", "b": "j_teach", "type": "path"},
+    {"id": "e42", "a": "j_teach", "b": "teach_gate", "type": "path"},
+
+    {"id": "e50", "a": "teach_gate", "b": "j_plaza", "type": "path"},
+    {"id": "e51", "a": "j_dorm", "b": "j_plaza", "type": "path"},
+
+    {"id": "e60", "a": "j_plaza", "b": "j_hill_t", "type": "slope", "grade": 0.13, "surface": "asphalt"},
+    {"id": "e61", "a": "j_plaza", "b": "j_ramp_t", "type": "ramp", "grade": 0.07, "width_m": 1.5, "surface": "asphalt"},
+
+    {"id": "e62", "a": "j_hill_t", "b": "j_lib_n", "type": "path"},
+    {"id": "e63", "a": "j_ramp_t", "b": "j_lib_n", "type": "path"},
+    {"id": "e64", "a": "j_lib_n", "b": "lib_st1", "type": "stairs", "stair_count": 24},
+    {"id": "e65", "a": "j_lib_n", "b": "lib_gate", "type": "ramp", "grade": 0.06, "width_m": 1.4, "surface": "concrete"},
+
+    {"id": "e70", "a": "j_plaza", "b": "j_south", "type": "path", "surface": "brick"},
+    {"id": "e71", "a": "j_south", "b": "j_south_mid", "type": "path", "surface": "brick", "tactile": true},
+    {"id": "e72", "a": "j_south_mid", "b": "lib_gate", "type": "path", "tactile": true},
+
+    {"id": "e80", "a": "j_south_mid", "b": "j_cant_w", "type": "path"},
+    {"id": "e81", "a": "j_cant_w", "b": "j_cant_e", "type": "path"},
+    {"id": "e82", "a": "j_cant_e", "b": "canteen_gate", "type": "path"},
+    {"id": "e83", "a": "j_cant_w", "b": "j_lib_n", "type": "slope", "grade": 0.11, "surface": "asphalt"},
+
+    {"id": "e90", "a": "j_ramp_t", "b": "j_cant_w", "type": "path", "tactile": true},
+    {"id": "e91", "a": "j_teach", "b": "j_plaza", "type": "path", "tactile": true}
+  ]
+}

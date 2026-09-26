@@ -1,0 +1,106 @@
+{
+  "_comment": "无障碍路径权重配置。总权重 cost = length(m) × 各乘数累加；权重越低越优先。普通模式仅用于对比。",
+  "accessible": {
+    "_comment": "轮椅 / 无障碍模式：核心目标——避开台阶与陡坡，优先电梯、坡道、平缓通道",
+    "base_per_m": 1.0,
+    "type_multiplier": {
+      "path": 1.0,
+      "corridor": 1.1,
+      "ramp": 1.15,
+      "elevator": 1.3,
+      "door": 1.2,
+      "slope": 1.0,
+      "stairs": 1.0
+    },
+    "surface_factor": {
+      "asphalt": 1.0,
+      "concrete": 1.05,
+      "brick": 1.1,
+      "gravel": 1.5,
+      "cobble": 2.0
+    },
+    "default_surface": "asphalt",
+    "grade": {
+      "_comment": "坡度 = 升高/水平距离。平缓 <=0.05；坡道上限 0.083(1:12)；超陡坡 0.13 需强力避开。公式: per_m = base × type × surface × (1 + k1·g + k2·g^3)",
+      "gentle_max": 0.05,
+      "ramp_max": 0.083,
+      "k_linear": 10,
+      "k_cubic": 600
+    },
+    "accessible_bonus": {
+      "_comment": "对坡道/电梯/无障碍设施给予额外折扣，确保在距离相近时优先选择无障碍通道",
+      "ramp": 0.85,
+      "elevator": 0.9
+    },
+    "tactile_factor": 0.95,
+    "stairs": {
+      "_comment": "台阶在无障碍模式下使用固定高权重而非物理长度，使绕行通常更优；blocked=true 时为不可通过",
+      "per_step": 30.0,
+      "floors_per_floor": 50.0,
+      "length_factor": 2.0,
+      "blocked": false
+    },
+    "elevator": {
+      "_comment": "电梯等待+乘坐的固定开销，按跨越楼层数计",
+      "per_floor": 12.0,
+      "length_factor": 0.3
+    },
+    "door": {
+      "_comment": "自动门 / 推拉门方便；沉重门增加固定开销",
+      "flat_cost": 2.0,
+      "heavy_door": 6.0
+    },
+    "narrow_width_min": 0.9,
+    "narrow_penalty_per_m": 3.0,
+    "blocked_edge_cost": 1000000
+  },
+  "regular": {
+    "_comment": "普通步行模式：基本按距离，台阶与坡度只有很小的惩罚，用于和无障碍路线对比",
+    "base_per_m": 1.0,
+    "type_multiplier": {
+      "path": 1.0,
+      "corridor": 1.05,
+      "ramp": 1.1,
+      "elevator": 1.4,
+      "door": 1.1,
+      "slope": 1.0,
+      "stairs": 1.0
+    },
+    "surface_factor": {
+      "asphalt": 1.0,
+      "concrete": 1.0,
+      "brick": 1.0,
+      "gravel": 1.1,
+      "cobble": 1.2
+    },
+    "default_surface": "asphalt",
+    "grade": {
+      "gentle_max": 0.05,
+      "ramp_max": 0.083,
+      "k_linear": 2,
+      "k_cubic": 40
+    },
+    "accessible_bonus": {
+      "ramp": 1.0,
+      "elevator": 1.0
+    },
+    "tactile_factor": 1.0,
+    "stairs": {
+      "per_step": 0.2,
+      "floors_per_floor": 2.0,
+      "length_factor": 1.0,
+      "blocked": false
+    },
+    "elevator": {
+      "per_floor": 22.0,
+      "length_factor": 0.5
+    },
+    "door": {
+      "flat_cost": 1.0,
+      "heavy_door": 1.5
+    },
+    "narrow_width_min": 0.6,
+    "narrow_penalty_per_m": 0.2,
+    "blocked_edge_cost": 1000000
+  }
+}
